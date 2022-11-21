@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -24,9 +26,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Post $post)
     {
-        //
+        return view('posts.create', ['post' => $post]);
     }
 
     /**
@@ -37,7 +39,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = $request->user()->posts()->create([
+            'title' => $title = $request->title,
+            'slug'  => Str::slug($title),
+            'body'  => $request->body,
+        ]);
+
+        return redirect()->route('posts.edit', $post);
     }
 
     /**
@@ -48,7 +56,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        
     }
 
     /**
@@ -59,7 +67,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -71,7 +79,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->update([
+            'title' => $title = $request->title,
+            'slug'  => Str::slug($title),
+            'body'  => $request->body,
+        ]);
+        
+        return redirect()->route('posts.edit', $post);
     }
 
     /**
