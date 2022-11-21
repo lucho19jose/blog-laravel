@@ -4,6 +4,9 @@
 <span class="text-xs text-red-600">@error('title') {{ $message }} @enderror</span>
 <input type="text" name="title" id="title" class="rounded border-gray-200 w-full mb-4" value="{{ old('title', $post->title) }}">
 
+<span class="text-xs text-red-600">@error('slug') {{ $message }} @enderror</span>
+<input type="text" name="slug" id="slug" class="rounded border-gray-200 w-full mb-4" value="{{ old('slug', $post->slug) }}">
+
 <label for="content" class="uppercase text-gray-700 text-xs">Contenido</label>
 <span class="text-xs text-red-600">@error('body') {{ $message }} @enderror</span>
 
